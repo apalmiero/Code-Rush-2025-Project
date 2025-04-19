@@ -1,0 +1,12 @@
+# Node modules
+node_modules/
+
+# SQLite database
+*.db
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables (if used later)
+.env
