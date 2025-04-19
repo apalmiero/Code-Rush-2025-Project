@@ -1,12 +1,23 @@
+/* filepath: c:\Users\games\OneDrive\Desktop\Code-Rush-2025-Project\public\styles.css */
 body {
-    background: #121212;
-    color: #f1c40f;
-    font-family: sans-serif;
-    text-align: center;
-    padding: 2em;
-  }
-  
-  button {
-    padding: 0.5em 1em;
-    margin: 1em;
-  }
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+}
+
+#timer-status {
+  font-size: 1.5em;
+  margin-top: 20px;
+}
+
+input {
+  margin: 5px;
+  padding: 5px;
+  font-size: 1em;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+}
