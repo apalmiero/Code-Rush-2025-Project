@@ -40,6 +40,13 @@ function getUserID(username, password) {
 // Example usage: Replace with actual username and password inputs
 const username = "user1";
 const password = "hashed_password_1"; // Replace with actual hashed password
+let counter;
+  let countdown;
+  let isPaused = false;
+  let isWorkInterval = true;
+  let timeLeft;
+  let intervalType;
+  const timerDisplay = document.getElementById("timer-status");
 let userId;
 let flashcards = [];
 let currentFlashcardIndex = 0; // Initialize current flashcard index
@@ -129,26 +136,19 @@ document.getElementById("addFlashcard").addEventListener("click", function () {
 
 // Automatically alternate between two intervals
 function timer(workMinutes, breakMinutes) {
-  let isWorkInterval = true; // Start with work
-  let intervalDuration = workMinutes * 60; // in seconds
-  let timeLeft = intervalDuration;
-  let intervalType = "Work";
-  let timerDisplay = document.getElementById("timer-status");
-  let countdown;
-
+  
   function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    timerDisplay.innerText = `${intervalType} interval: ${minutes}:${seconds
-      .toString()
-      .padStart(2, "0")} remaining`;
+    timerDisplay.innerText = `${intervalType} interval: ${minutes}:${seconds.toString().padStart(2, '0')} remaining`;
   }
 
   function startInterval() {
-    timeLeft = isWorkInterval ? workMinutes * 60 : breakMinutes * 60;
-    intervalType = isWorkInterval ? "Work" : "Break";
-
-    updateDisplay(); // Immediately show initial time
+    if (!isPaused) {
+      timeLeft = isWorkInterval ? workMinutes * 60 : breakMinutes * 60;
+      intervalType = isWorkInterval ? "Work" : "Break";
+    }
+    updateDisplay();
 
     countdown = setInterval(() => {
       timeLeft--;
@@ -157,13 +157,36 @@ function timer(workMinutes, breakMinutes) {
       if (timeLeft <= 0) {
         clearInterval(countdown);
         isWorkInterval = !isWorkInterval; // Switch to the other interval
+        isPaused = false;
         startInterval(); // Start next interval
       }
     }, 1000);
   }
 
-  startInterval(); // Begin first interval
+  startInterval();
 }
+  
+  function pauseInterval() {
+    clearInterval(countdown);
+    isPaused = true;
+    timerDisplay.innerText = "Timer Paused";
+  }
+  
+  function resumeInterval() {
+    isPaused = false;
+  
+    countdown = setInterval(() => {
+      timeLeft--;
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerDisplay.innerText = `${intervalType} interval: ${minutes}:${seconds.toString().padStart(2, '0')} remaining`;
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+        isWorkInterval = !isWorkInterval; // Switch to the other interval
+        startInterval(); // Start next interval
+      }
+    }, 1000);
+  }
 
 // Attach event listener to the start button
 document.getElementById("start-timer").addEventListener("click", () => {
@@ -186,5 +209,18 @@ document.getElementById("start-timer").addEventListener("click", () => {
     return;
   }
 
+    isPaused = false; // Ensure timer starts unpaused
   timer(workMinutes, breakMinutes);
 });
+  
+  // Attach event listener to the stop button
+  document.getElementById("stop-timer").addEventListener("click", () => {
+    const stopButton = document.getElementById("stop-timer");
+    if (isPaused) {
+      resumeInterval();
+      stopButton.innerText = "Pause Timer";
+    } else {
+      pauseInterval();
+      stopButton.innerText = "Resume Timer";
+    }
+  });
