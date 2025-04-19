@@ -1,24 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pomodoro Timer</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h1>Pomodoro Timer</h1>
-  <div>
-    <label for="work-minutes">Work Duration (minutes):</label>
-    <input type="number" id="work-minutes" placeholder="e.g., 25" />
-  </div>
-  <div>
-    <label for="break-minutes">Break Duration (minutes):</label>
-    <input type="number" id="break-minutes" placeholder="e.g., 5" />
-  </div>
-  <button id="start-timer">Start Timer</button>
-  <div id="timer-status">Timer not started</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Pomodoro Timer</h1>
+    <div>
+      <label for="work-minutes">Work Duration (minutes):</label>
+      <input type="number" id="work-minutes" placeholder="e.g., 25" />
+    </div>
+    <div>
+      <label for="break-minutes">Break Duration (minutes):</label>
+      <input type="number" id="break-minutes" placeholder="e.g., 5" />
+    </div>
+    <button id="start-timer">Start Timer</button>
+    <div id="timer-status">Timer not started</div>
 
-  <script src="app.js"></script>
-</body>
+    <div id="flashcard">
+      
+      <div id="flashcardContent">
+        <h2 id="flashcardQuestion"></h2>
+        <h3 id="flashcardAnswer"></h3>
+      </div>
+    </div>
+    <div id="flashcardDisplay">
+      <button id="previousFlashcard">Previous Flashcard</button>
+      <button id="addFlashcard"> Add Flashcard </button>
+      <button id="nextFlashcard">Next Flashcard</button>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
 </html>

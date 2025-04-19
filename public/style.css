@@ -1,8 +1,15 @@
-/* filepath: c:\Users\games\OneDrive\Desktop\Code-Rush-2025-Project\public\styles.css */
 body {
   font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full viewport height */
+  margin: 0;
+}
+
+h1 {
+  margin-bottom: 20px;
 }
 
 #timer-status {
@@ -20,4 +27,64 @@ button {
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
+}
+
+#flashcardDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Adds a gap between the buttons */
+  margin-top: 20px;
+}
+
+#flashcard {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: rgb(224, 224, 224);
+  width: 600px;
+  height: 300px;
+  display: flex;
+  position: relative; /* Needed for positioning child elements */
+}
+
+#flashcardNumber {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: 0;
+  font-size: 1.2em;
+}
+
+
+#flashcardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+#flashcardQuestion {
+  margin: 0;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+#flashcardAnswer {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1.2em;
+  background-color: black;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: black; /* same as background */
+  transition: color 0.3s ease;
+}
+
+#flashcardAnswer:hover{
+  color: white;
 }

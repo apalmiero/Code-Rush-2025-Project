@@ -35,6 +35,29 @@ app.get('/api/flashcards', (req, res) => {
   });
 });
 
+app.post('/api/flashcards', (req, res) => {
+  const { question, answer, user_id } = req.body;
+
+  if (!question || !answer || !user_id) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  const db = new sqlite3.Database(dbPath);
+
+  const query = `INSERT INTO flashcards (question, answer, user_id) VALUES (?, ?, ?)`;
+
+  db.run(query, [question, answer, user_id], function (err) {
+    if (err) {
+      console.error("DB insert error:", err);
+      res.status(500).json({ error: 'Failed to insert flashcard' });
+    } else {
+      res.status(201).json({ flashcard_id: this.lastID }); // Return the new ID
+    }
+
+    db.close();
+  });
+});
+
 // API route for user login
 app.post('/api/login', express.json(), (req, res) => {
   const { username, password } = req.body;
