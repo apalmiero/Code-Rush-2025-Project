@@ -1,23 +1,38 @@
 const express = require('express');
+const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-const cors = require('cors');
-
 const app = express();
 const PORT = 3000;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// Path to DB
+const dbPath = path.join(__dirname, '../database/flashcards.db');
 
-// Serve static files from the root directory
-app.use(express.static(path.join(__dirname, '..')));
+// Serve frontend (public folder)
+app.use(express.static(path.join(__dirname, '../public')));
 
-// Example route (optional)
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello from backend!' });
+// API route to get all flashcards for a specific user
+app.get('/api/flashcards', (req, res) => {
+  const userId = req.query.user_id;
+  
+  if (!userId) {
+    return res.status(400).json({ error: 'User ID is required' });
+  }
+
+  const db = new sqlite3.Database(dbPath);
+
+  db.all('SELECT * FROM flashcards WHERE user_id = ?', [userId], (err, rows) => {
+    if (err) {
+      console.error("DB error:", err);
+      res.status(500).json({ error: 'Database read error' });
+    } else {
+      res.json(rows);
+    }
+
+    db.close();
+  });
 });
 
-// Start server
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
