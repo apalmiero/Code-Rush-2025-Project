@@ -1,0 +1,17 @@
+{
+  "name": "code-rush-2025-project",
+  "version": "1.0.0",
+  "description": "8-hour Hackathon Submission by Annamaria Palmiero and Cooper Meekins",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "sqlite3": "^5.1.7"
+  }
+}
